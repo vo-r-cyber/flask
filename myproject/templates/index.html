@@ -1,4 +1,23 @@
-<!doctype html>
-<title>Home</title>
-<h1>Hello,{{g.user['username']}}!</h1>
-<a href="{{url_for('auth.logout')}}">logout</a>
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Home</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <header>
+      <h2>Hello, {{ g.user['username'] }}!</h2>
+    </header>
+
+    <p><a href="{{ url_for('auth.logout') }}">logout</a></p>
+  </div>
+{% endblock %}
